@@ -6,7 +6,7 @@
     "autoload": {
         "psr-4": {
             "Ws\\": "ws/src/",
-            "Reserve\\": "core/src"
+            "Core\\": "core/src"
         }
     },
     "require": {
