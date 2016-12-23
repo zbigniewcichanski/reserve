@@ -5,12 +5,16 @@
     "description": "Symfony3.0 Micro Trait application",
     "autoload": {
         "psr-4": {
-            "AppBundle\\": "AppBundle/"
+            "Ws\\": "ws/src/",
+            "Reserve\\": "core/src"
         }
     },
     "require": {
         "symfony/symfony": "3.0.*",
-        "sensio/framework-extra-bundle": "^3.0.2"
+        "sensio/framework-extra-bundle": "^3.0.2",
+        "php-di/php-di": "^5.3",
+        "vlucas/phpdotenv": "^2.2",
+        "php-di/symfony-bridge": "2.0.*"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.5"
