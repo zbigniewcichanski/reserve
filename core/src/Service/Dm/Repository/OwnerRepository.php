@@ -3,12 +3,12 @@
  * Created by PhpStorm.
  * @author: Zbyszek Cichanski
  * Date: 23.12.2016
- * Time: 20:14
+ * Time: 20:13
  */
 
-namespace Core\Owner\App;
+namespace Core\Service\Dm\Repository;
 
-class OwnerService
+class ServiceRepository
 {
 
 }

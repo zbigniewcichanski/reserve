@@ -6,7 +6,7 @@
  * Time: 20:12
  */
 
-namespace Core\Owner\Dm;
+namespace Core\Service\Dm;
 
 class OwnerAggregate
 {

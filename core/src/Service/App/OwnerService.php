@@ -6,9 +6,9 @@
  * Time: 20:14
  */
 
-namespace Core\Owner\Inf;
+namespace Core\Service\App;
 
-class OwnerConvert
+class OwnerService
 {
 
 }

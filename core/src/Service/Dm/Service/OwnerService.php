@@ -6,9 +6,9 @@
  * Time: 20:13
  */
 
-namespace Core\Owner\Dm\Service;
+namespace Core\Service\Dm\Service;
 
-class OwnerService
+class ServiceService
 {
 
 }
