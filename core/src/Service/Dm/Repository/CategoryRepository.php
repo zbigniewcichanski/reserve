@@ -22,20 +22,28 @@ class CategoryRepository extends Repository
 
     public function getOnIdentity($identity)
     {
-        $category = $this->repository->getOneByCriteria(['id'=>$identity]);
-        if(empty($category)){
-            return false;
+        try {
+            $category = $this->repository->getOneByCriteria(['id' => $identity]);
+            if (empty($category)) {
+                return false;
+            }
+            return $category;
+        } catch (\Exception $e){
+            throw new \Exception ("Błąd w procesie pobierania kategorii na podstawie id.");
         }
-        return $category;
     }
 
     public function getCategoryByName($name)
     {
-        $category = $this->repository->getOneByCriteria(['name'=>$name]);
-        if(empty($category)){
-            return false;
+        try {
+            $category = $this->repository->getOneByCriteria(['name' => $name]);
+            if (empty($category)) {
+                return false;
+            }
+            return $category;
+        } catch (\Exception $e){
+            throw new \Exception ("Błąd w procesie pobierania kategorii na podstawie nazwy.");
         }
-        return $category;
     }
 
     public function getAll()
