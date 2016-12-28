@@ -14,6 +14,8 @@ class CategoryAggregate extends DomainObject
 {
     private $name;
 
+    private $parentCategoryId = false;
+
     public function getId()
     {
        return $this->id;
@@ -32,6 +34,7 @@ class CategoryAggregate extends DomainObject
      */
     public function changeName($name)
     {
+        $this->markDirty();
         $this->name = $name;
     }
 
@@ -41,5 +44,30 @@ class CategoryAggregate extends DomainObject
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParentCategoryId()
+    {
+        return $this->parentCategoryId;
+    }
+
+    /**
+     * @param mixed $parentCategoryId
+     */
+    public function changeParentCategoryId($parentCategoryId)
+    {
+        $this->markDirty();
+        $this->parentCategoryId = $parentCategoryId;
+    }
+
+    /**
+     * @param mixed $parentCategoryId
+     */
+    public function setParentCategoryId($parentCategoryId)
+    {
+        $this->parentCategoryId = $parentCategoryId;
     }
 }

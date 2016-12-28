@@ -14,8 +14,19 @@ $container =[
     //SERVICE ________________________________________SERVICE
 
     //DM __________________ DM
+    'service-category-service' => function ($c) {
+        return new \Core\Service\Dm\Service\CategoryService(
+            $c->get('service-category-repository'),
+            $c->get('service-category-name-is-unique-specification')
+        );
+    },
+
     'service-category-repository' => function ($c) {
         return new \Core\Service\Dm\Repository\CategoryRepository($c->get('service-category-inf-convert'));
+    },
+
+    'service-category-name-is-unique-specification' => function ($c) {
+        return new \Core\Service\Dm\Specification\CategoryNameIsUnique($c->get('service-category-repository'));
     },
 
     //INF _________________ INF
@@ -30,6 +41,10 @@ $container =[
 
     'service-category-inf-repository' => function ($c) {
         return new \Core\Service\Inf\Repository\PDOCategoryRepository($c->get('service-database-factory'));
+    },
+
+    'service-category-mapper' => function ($c) {
+        return new \Core\Service\Inf\Mapper\CategoryMapper($c->get('service-database-factory'));
     },
 
     //SERVICE ________________________________________SERVICE - END

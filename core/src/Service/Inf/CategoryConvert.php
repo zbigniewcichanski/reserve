@@ -36,6 +36,9 @@ class CategoryConvert
         foreach($categoryArray as $row){
             $categoryAggregate = new CategoryAggregate($row['idCategory']);
             $categoryAggregate->setName($row['name']);
+            if($row['idParentCategory'] != null){
+                $categoryAggregate->setParentCategoryId($row['idParentCategory']);
+            }
             $result[]=$categoryAggregate;
         }
 

@@ -27,8 +27,9 @@ class PDOCategoryRepository implements InfCategoryRepository
         try {
             $sql = "SELECT
                     category.idCategory,
+                    category.idParentCategory,
                     category.name
-                    FROM reserve_category as category
+                    FROM service_category as category
                     WHERE category.deleted = 0
                     ";
 
@@ -75,8 +76,9 @@ class PDOCategoryRepository implements InfCategoryRepository
         try {
             $sql = "SELECT
                     category.idCategory
+                    category.idParentCategory
                     category.name
-                    FROM category
+                    FROM service_category as category
                     WHERE category.deleted = 0
                     ";
 
