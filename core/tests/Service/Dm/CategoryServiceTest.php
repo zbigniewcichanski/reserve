@@ -33,5 +33,17 @@ class CategoryServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($result);
     }
 
+    public function testCreateCategoryWithParent()
+    {
+        $name = 'Niemiecki';
+        $parentId = '1';
+
+        $result = $this->service->createCategory($name, $parentId);
+        var_dump($result);
+        $this->assertNotNull($result);
+        $this->assertTrue($result['status']);
+        $this->assertNotEmpty($result);
+    }
+
 
 }

@@ -30,24 +30,34 @@ class CategoryService
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function createCategory($name)
+    public function createCategory($name, $idParentCategory = false)
     {
-        try{
+        try {
 
-            if($this->categoryNameIsUnique->not()->isSatisfiedBy($name)){
-                return ['status'=>false, 'message'=>'Istnieje już kategoria o podanej nazwie.'];
+            if ($this->categoryNameIsUnique->not()->isSatisfiedBy($name)) {
+                return ['status' => false, 'message' => 'Istnieje już kategoria o podanej nazwie.'];
             }
 
             $category = new CategoryAggregate();
             $category->setName($name);
 
+            if ($idParentCategory != false) {
+
+                $categoryParent = $this->categoryRepository->getOnIdentity($idParentCategory);
+                if(!$categoryParent){
+                    return ['status'=>false , 'message'=>'Wybrana wyższa kategoria nie istnieje.'];
+                }
+
+                $category->setParentCategoryId($idParentCategory);
+            }
+
             $category->save();
 
-            return ['status'=>true, 'message'=>'Kategoria została dodana.'];
+            return ['status' => true, 'message' => 'Kategoria została dodana.'];
 
 
-        } catch (\Exception $e){
-            throw new \Exception ("Błąd w procesie tworzenia kategorii.".$e->getMessage());
+        } catch (\Exception $e) {
+            throw new \Exception ("Błąd w procesie tworzenia kategorii." . $e->getMessage());
         }
     }
 }

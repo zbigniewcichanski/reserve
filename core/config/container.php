@@ -13,6 +13,19 @@ $containerBuilder = new \DI\ContainerBuilder();
 $container =[
     //SERVICE ________________________________________SERVICE
 
+    //APP __________________ APP
+    'service-app-message' => function ($c) {
+        return new \Core\Core\Message();
+    },
+
+    'service-app-category-service' => function ($c) {
+        return new \Core\Service\App\CategoryService(
+            $c->get('service-app-message'),
+            $c->get('service-category-service'),
+            $c->get('service-category-repository')
+        );
+    },
+
     //DM __________________ DM
     'service-category-service' => function ($c) {
         return new \Core\Service\Dm\Service\CategoryService(
