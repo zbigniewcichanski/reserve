@@ -8,9 +8,13 @@
 
 namespace Tests\Owner\Dm;
 
+use Core\Service\Dm\Service\CategoryService;
 
 class CategoryServiceTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var CategoryService $service
+     */
     private $service;
 
     public function setUp()
@@ -39,6 +43,18 @@ class CategoryServiceTest extends \PHPUnit_Framework_TestCase
         $parentId = '1';
 
         $result = $this->service->createCategory($name, $parentId);
+        var_dump($result);
+        $this->assertNotNull($result);
+        $this->assertTrue($result['status']);
+        $this->assertNotEmpty($result);
+    }
+
+    public function testChangeCategoryName()
+    {
+        $name = 'Anglik';
+        $id = '0e2e6f3514efd2376c6ddccfe3b5590f';
+
+        $result = $this->service->changeCategoryName($id, $name);
         var_dump($result);
         $this->assertNotNull($result);
         $this->assertTrue($result['status']);

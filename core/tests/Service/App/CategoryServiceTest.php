@@ -10,9 +10,13 @@ namespace Tests\Owner\App;
 
 
 use Core\Service\App\Command\CategoryCommand;
+use Core\Service\App\CategoryService;
 
 class CategoryServiceTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var CategoryService $service
+     */
     private $service;
 
     public function setUp()
@@ -34,6 +38,7 @@ class CategoryServiceTest extends \PHPUnit_Framework_TestCase
         var_dump($result);
         $this->assertNotNull($result);
         $this->assertInstanceOf('\Core\Core\MessageInterface', $result);
+        $this->assertTrue($result->getStatus());
         $this->assertNotEmpty($result);
     }
 
@@ -46,6 +51,21 @@ class CategoryServiceTest extends \PHPUnit_Framework_TestCase
         var_dump($result);
         $this->assertNotNull($result);
         $this->assertInstanceOf('\Core\Core\MessageInterface', $result);
+        $this->assertTrue($result->getStatus());
+        $this->assertNotEmpty($result);
+    }
+
+    public function testChangeCategoryname()
+    {
+        $categoryCommand = new CategoryCommand();
+        $categoryCommand->name = 'Francus';
+        $categoryCommand->id = '88735a8be62a9ca02ab87a8fa573faef';
+
+        $result = $this->service->changeCategoryName($categoryCommand);
+        var_dump($result);
+        $this->assertNotNull($result);
+        $this->assertInstanceOf('\Core\Core\MessageInterface', $result);
+        $this->assertTrue($result->getStatus());
         $this->assertNotEmpty($result);
     }
 

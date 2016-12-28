@@ -38,20 +38,20 @@ class CategoryService
                 return ['status' => false, 'message' => 'Istnieje już kategoria o podanej nazwie.'];
             }
 
-            $category = new CategoryAggregate();
-            $category->setName($name);
+            $categoryAggregate = new CategoryAggregate();
+            $categoryAggregate->setName($name);
 
             if ($idParentCategory != false) {
 
-                $categoryParent = $this->categoryRepository->getOnIdentity($idParentCategory);
-                if(!$categoryParent){
+                $categoryAggregateParent = $this->categoryRepository->getOnIdentity($idParentCategory);
+                if(!$categoryAggregateParent){
                     return ['status'=>false , 'message'=>'Wybrana wyższa kategoria nie istnieje.'];
                 }
 
-                $category->setParentCategoryId($idParentCategory);
+                $categoryAggregate->setParentCategoryId($idParentCategory);
             }
 
-            $category->save();
+            $categoryAggregate->save();
 
             return ['status' => true, 'message' => 'Kategoria została dodana.'];
 
@@ -60,4 +60,37 @@ class CategoryService
             throw new \Exception ("Błąd w procesie tworzenia kategorii." . $e->getMessage());
         }
     }
+
+    public function changeCategoryName($categoryId, $newName)
+    {
+        try {
+
+            /**
+             *@var CategoryAggregate $categoryAggregate
+             */
+            $categoryAggregate = $this->categoryRepository->getOnIdentity($categoryId);
+            if(!$categoryAggregate){
+                return ['status'=>false , 'message'=>'Nie ma takiej kategorii.'];
+            }
+
+            if($categoryAggregate->getName() == $newName){
+                return ['status' => false, 'message' => 'Wybrana kategoria ma już taką nazwę.'];
+            }
+
+            if ($this->categoryNameIsUnique->not()->isSatisfiedBy($newName)) {
+                return ['status' => false, 'message' => 'Istnieje już kategoria o podanej nazwie.'];
+            }
+
+            $categoryAggregate->changeName($newName);
+
+            $categoryAggregate->save();
+
+            return ['status' => true, 'message' => 'Nazwa Kategorii została zmieniona.'];
+
+
+        } catch (\Exception $e) {
+            throw new \Exception ("Błąd w procesie zmiany nazwy kategorii." . $e->getMessage());
+        }
+    }
+
 }

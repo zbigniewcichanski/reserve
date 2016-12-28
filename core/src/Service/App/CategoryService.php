@@ -44,6 +44,23 @@ class CategoryService
         }
     }
 
+    public function changeCategoryName(CategoryCommand $categoryCommand): MessageInterface
+    {
+        try {
+            $result = $this->categoryService->changeCategoryName($categoryCommand->id, $categoryCommand->name);
+
+            if ($result['status'] == true) {
+                $this->message->build(true, $result['message'], 204);
+            } else {
+                $this->message->build(false, $result['message'], 400);
+            }
+            return $this->message;
+        } catch (\Exception $e) {
+            $this->message->build(false, 'Wystąpił błąd.' . $e->getMessage(), 500);
+            return $this->message;
+        }
+    }
+
 
     public function getCategoryList(): MessageInterface
     {
