@@ -8,7 +8,7 @@
 
 namespace Core\Service\App;
 
-class OwnerService
+class TeacherService
 {
 
 }

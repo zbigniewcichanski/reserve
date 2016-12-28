@@ -93,4 +93,28 @@ class CategoryService
         }
     }
 
+    public function removeCategory($categoryId)
+    {
+        try {
+
+            /**
+             *@var CategoryAggregate $categoryAggregate
+             */
+            $categoryAggregate = $this->categoryRepository->getOnIdentity($categoryId);
+            if(!$categoryAggregate){
+                return ['status'=>false , 'message'=>'Nie ma takiej kategorii.'];
+            }
+
+            $categoryAggregate->deleted();
+
+            $categoryAggregate->save();
+
+            return ['status' => true, 'message' => 'Kategoria została usunięta.'];
+
+
+        } catch (\Exception $e) {
+            throw new \Exception ("Błąd w procesie usuwania kategorii." . $e->getMessage());
+        }
+    }
+
 }

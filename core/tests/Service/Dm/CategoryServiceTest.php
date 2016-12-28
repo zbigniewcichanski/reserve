@@ -61,5 +61,15 @@ class CategoryServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($result);
     }
 
+    public function testRemoveCategory()
+    {
+        $id = '0e2e6f3514efd2376c6ddccfe3b5590f';
+
+        $result = $this->service->removeCategory($id);
+        var_dump($result);
+        $this->assertNotNull($result);
+        $this->assertTrue($result['status']);
+        $this->assertNotEmpty($result);
+    }
 
 }

@@ -69,4 +69,17 @@ class CategoryServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($result);
     }
 
+    public function testRemoveCategory()
+    {
+        $categoryCommand = new CategoryCommand();
+        $categoryCommand->id = '88735a8be62a9ca02ab87a8fa573faef';
+
+        $result = $this->service->removeCategory($categoryCommand);
+        var_dump($result);
+        $this->assertNotNull($result);
+        $this->assertInstanceOf('\Core\Core\MessageInterface', $result);
+        $this->assertTrue($result->getStatus());
+        $this->assertNotEmpty($result);
+    }
+
 }
