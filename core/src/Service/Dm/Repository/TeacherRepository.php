@@ -8,7 +8,7 @@
 
 namespace Core\Service\Dm\Repository;
 
-class ServiceRepository
+class TeacherRepository
 {
 
 }

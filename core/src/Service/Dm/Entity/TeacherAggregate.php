@@ -32,9 +32,7 @@ class TeacherAggregate extends DomainObject implements Owner
 
     private $students = [];
 
-    private $timetable = [];
-
-    private $freeTerms = [];
+    private $schedule = [];
 
     public function getId()
     {
@@ -214,18 +212,18 @@ class TeacherAggregate extends DomainObject implements Owner
     /**
      * @return array
      */
-    public function getTimetable()
+    public function getSchedule()
     {
-        return $this->timetable;
+        return $this->schedule;
     }
 
     /**
-     * @param array $timetable
+     * @param array $schedule
      */
-    public function addTimetable($timetable)
+    public function addSchedule($schedule)
     {
         $this->markDirty();
-        $this->timetable[] = $timetable;
+        $this->schedule[] = $schedule;
     }
 
     /**
@@ -309,36 +307,11 @@ class TeacherAggregate extends DomainObject implements Owner
     }
 
     /**
-     * @param array $timetable
+     * @param array $schedule
      */
-    public function setTimetable($timetable)
+    public function setSchedule($schedule)
     {
-        $this->timetable = $timetable;
-    }
-
-    /**
-     * @return array
-     */
-    public function getFreeTerms()
-    {
-        return $this->freeTerms;
-    }
-
-    /**
-     * @param array $freeTerms
-     */
-    public function addFreeTerm($freeTerms)
-    {
-        $this->markDirty();
-        $this->freeTerms[] = $freeTerms;
-    }
-
-    /**
-     * @param array $freeTerms
-     */
-    public function setFreeTerms($freeTerms)
-    {
-        $this->freeTerms = $freeTerms;
+        $this->schedule = $schedule;
     }
 
 }
