@@ -9,6 +9,7 @@
 namespace Core\Service\Dm\Entity;
 
 use Core\Service\Core\DomainObject;
+use Core\Service\Dm\Entity\Teacher\CategoryVO;
 
 class TeacherAggregate extends DomainObject implements Owner
 {
@@ -24,7 +25,7 @@ class TeacherAggregate extends DomainObject implements Owner
 
     private $email;
 
-    private $categoryId;
+    private $categoriesId = [];
 
     private $driveToStudent = false;
 
@@ -144,18 +145,40 @@ class TeacherAggregate extends DomainObject implements Owner
     /**
      * @return mixed
      */
-    public function getCategoryId()
+    public function getCategories(): array
     {
-        return $this->categoryId;
+        return $this->categoriesId;
     }
 
     /**
-     * @param mixed $categoryId
+     * @param CategoryVO $categoryVO
      */
-    public function changeCategoryId($categoryId)
+    public function addCategory(CategoryVO $categoryVO)
     {
         $this->markDirty();
-        $this->categoryId = $categoryId;
+        $this->categoriesId[$categoryVO->getId()] = $categoryVO;
+    }
+
+    /**
+     * @param CategoryVO $categoryVO
+     * @return bool
+     */
+    public function removeCategory(CategoryVO $categoryVO)
+    {
+        if(isset($this->categoriesId[$categoryVO->getId()])){
+            $this->markDirty();
+            unset($this->categoriesId[$categoryVO->getId()]);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param array $categoriesId
+     */
+    public function setCategories(array $categoriesId)
+    {
+        $this->categoriesId = $categoriesId;
     }
 
     /**
