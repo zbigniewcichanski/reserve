@@ -6,7 +6,7 @@
  * Time: 20:12
  */
 
-namespace Core\Service\Dm;
+namespace Core\Service\Dm\Entity;
 
 use Core\Service\Core\DomainObject;
 

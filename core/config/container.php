@@ -26,6 +26,14 @@ $container =[
         );
     },
 
+    'service-app-range-service' => function ($c) {
+        return new \Core\Service\App\RangeService(
+            $c->get('service-app-message'),
+            $c->get('service-range-service'),
+            $c->get('service-range-repository')
+        );
+    },
+
     //DM __________________ DM
     'service-category-service' => function ($c) {
         return new \Core\Service\Dm\Service\CategoryService(
@@ -33,13 +41,25 @@ $container =[
             $c->get('service-category-name-is-unique-specification')
         );
     },
+    'service-range-service' => function ($c) {
+        return new \Core\Service\Dm\Service\RangeService(
+            $c->get('service-range-repository'),
+            $c->get('service-range-name-is-unique-specification')
+        );
+    },
 
     'service-category-repository' => function ($c) {
         return new \Core\Service\Dm\Repository\CategoryRepository($c->get('service-category-inf-convert'));
     },
+    'service-range-repository' => function ($c) {
+        return new \Core\Service\Dm\Repository\RangeRepository($c->get('service-range-inf-convert'));
+    },
 
     'service-category-name-is-unique-specification' => function ($c) {
         return new \Core\Service\Dm\Specification\CategoryNameIsUnique($c->get('service-category-repository'));
+    },
+    'service-range-name-is-unique-specification' => function ($c) {
+        return new \Core\Service\Dm\Specification\RangeNameIsUnique($c->get('service-range-repository'));
     },
 
     //INF _________________ INF
@@ -51,13 +71,22 @@ $container =[
     'service-category-inf-convert' => function ($c) {
         return new \Core\Service\Inf\CategoryConvert($c->get('service-category-inf-repository'));
     },
+    'service-range-inf-convert' => function ($c) {
+        return new \Core\Service\Inf\RangeConvert($c->get('service-range-inf-repository'));
+    },
 
     'service-category-inf-repository' => function ($c) {
         return new \Core\Service\Inf\Repository\PDOCategoryRepository($c->get('service-database-factory'));
     },
+    'service-range-inf-repository' => function ($c) {
+        return new \Core\Service\Inf\Repository\PDORangeRepository($c->get('service-database-factory'));
+    },
 
     'service-category-mapper' => function ($c) {
         return new \Core\Service\Inf\Mapper\CategoryMapper($c->get('service-database-factory'));
+    },
+    'service-range-mapper' => function ($c) {
+        return new \Core\Service\Inf\Mapper\RangeMapper($c->get('service-database-factory'));
     },
 
     //SERVICE ________________________________________SERVICE - END
