@@ -28,7 +28,7 @@ class TeacherAggregate extends DomainObject implements Owner
 
     private $driveToStudent = false;
 
-    private $range = [];
+    private $ranges = [];
 
     private $students = [];
 
@@ -180,7 +180,7 @@ class TeacherAggregate extends DomainObject implements Owner
      */
     public function getRange()
     {
-        return $this->range;
+        return $this->ranges;
     }
 
     /**
@@ -189,7 +189,7 @@ class TeacherAggregate extends DomainObject implements Owner
     public function addRange($range)
     {
         $this->markDirty();
-        $this->range = $range;
+        $this->ranges[] = $range;
     }
 
     /**
@@ -293,9 +293,9 @@ class TeacherAggregate extends DomainObject implements Owner
     /**
      * @param array $range
      */
-    public function setRange($range)
+    public function setRanges($ranges)
     {
-        $this->range = $range;
+        $this->ranges = $ranges;
     }
 
     /**

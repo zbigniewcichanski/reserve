@@ -6,7 +6,7 @@
  * Time: 22:17
  */
 
-namespace Core\Service\Dm;
+namespace Core\Service\Dm\Entity;
 
 
 interface Owner
