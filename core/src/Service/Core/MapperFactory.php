@@ -22,6 +22,9 @@ class MapperFactory
             case 'Core\Service\Dm\Entity\RangeAggregate':
                 $mapper = $c->get('service-range-mapper');
                 break;
+            case 'Core\Service\Dm\Entity\TeacherAggregate':
+                $mapper = $c->get('service-teacher-mapper');
+                break;
             default:
                 throw new Exception('Brak powiązania klasy rodziny Domain Object z Mapperem.');
         }

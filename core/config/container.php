@@ -34,6 +34,14 @@ $container =[
         );
     },
 
+    'service-app-teacher-service' => function ($c) {
+        return new \Core\Service\App\TeacherService(
+            $c->get('service-app-message'),
+            $c->get('service-teacher-service'),
+            $c->get('service-teacher-repository')
+        );
+    },
+
     //DM __________________ DM
     'service-category-service' => function ($c) {
         return new \Core\Service\Dm\Service\CategoryService(
@@ -47,6 +55,12 @@ $container =[
             $c->get('service-range-name-is-unique-specification')
         );
     },
+    'service-teacher-service' => function ($c) {
+        return new \Core\Service\Dm\Service\TeacherService(
+            $c->get('service-teacher-repository'),
+            $c->get('service-teacher-email-is-unique-specification')
+        );
+    },
 
     'service-category-repository' => function ($c) {
         return new \Core\Service\Dm\Repository\CategoryRepository($c->get('service-category-inf-convert'));
@@ -54,12 +68,18 @@ $container =[
     'service-range-repository' => function ($c) {
         return new \Core\Service\Dm\Repository\RangeRepository($c->get('service-range-inf-convert'));
     },
+    'service-teacher-repository' => function ($c) {
+        return new \Core\Service\Dm\Repository\TeacherRepository($c->get('service-teacher-inf-convert'));
+    },
 
     'service-category-name-is-unique-specification' => function ($c) {
         return new \Core\Service\Dm\Specification\CategoryNameIsUnique($c->get('service-category-repository'));
     },
     'service-range-name-is-unique-specification' => function ($c) {
         return new \Core\Service\Dm\Specification\RangeNameIsUnique($c->get('service-range-repository'));
+    },
+    'service-teacher-email-is-unique-specification' => function ($c) {
+        return new \Core\Service\Dm\Specification\TeacherEmailIsUnique($c->get('service-teacher-repository'));
     },
 
     //INF _________________ INF
@@ -74,6 +94,9 @@ $container =[
     'service-range-inf-convert' => function ($c) {
         return new \Core\Service\Inf\RangeConvert($c->get('service-range-inf-repository'));
     },
+    'service-teacher-inf-convert' => function ($c) {
+        return new \Core\Service\Inf\TeacherConvert($c->get('service-teacher-inf-repository'));
+    },
 
     'service-category-inf-repository' => function ($c) {
         return new \Core\Service\Inf\Repository\PDOCategoryRepository($c->get('service-database-factory'));
@@ -81,12 +104,18 @@ $container =[
     'service-range-inf-repository' => function ($c) {
         return new \Core\Service\Inf\Repository\PDORangeRepository($c->get('service-database-factory'));
     },
+    'service-teacher-inf-repository' => function ($c) {
+        return new \Core\Service\Inf\Repository\PDOTeacherRepository($c->get('service-database-factory'));
+    },
 
     'service-category-mapper' => function ($c) {
         return new \Core\Service\Inf\Mapper\CategoryMapper($c->get('service-database-factory'));
     },
     'service-range-mapper' => function ($c) {
         return new \Core\Service\Inf\Mapper\RangeMapper($c->get('service-database-factory'));
+    },
+    'service-teacher-mapper' => function ($c) {
+        return new \Core\Service\Inf\Mapper\TeacherMapper($c->get('service-database-factory'));
     },
 
     //SERVICE ________________________________________SERVICE - END

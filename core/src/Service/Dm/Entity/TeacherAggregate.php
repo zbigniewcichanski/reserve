@@ -306,14 +306,6 @@ class TeacherAggregate extends DomainObject implements Owner
     }
 
     /**
-     * @param boolean $driveToStudent
-     */
-    public function setDriveToStudent($driveToStudent)
-    {
-        $this->driveToStudent = $driveToStudent;
-    }
-
-    /**
      * @param array $range
      */
     public function setRanges($ranges)
@@ -336,5 +328,8 @@ class TeacherAggregate extends DomainObject implements Owner
     {
         $this->schedule = $schedule;
     }
+
+
+
 
 }

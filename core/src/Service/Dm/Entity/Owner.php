@@ -21,6 +21,6 @@ interface Owner
 
     public function getPhone();
 
-    public function getCategoryId();
+    public function getCategories();
 
 }
