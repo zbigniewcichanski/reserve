@@ -199,6 +199,15 @@ class TeacherAggregate extends DomainObject implements Owner
     }
 
     /**
+     *
+     */
+    public function notDriveToStudent()
+    {
+        $this->markDirty();
+        $this->driveToStudent = false;
+    }
+
+    /**
      * @return array
      */
     public function getRange()
@@ -302,7 +311,7 @@ class TeacherAggregate extends DomainObject implements Owner
      */
     public function setCategoryId($categoryId)
     {
-        $this->categoryId = $categoryId;
+        $this->categoriesId = $categoryId;
     }
 
     /**
