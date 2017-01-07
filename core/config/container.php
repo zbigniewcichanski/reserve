@@ -58,7 +58,9 @@ $container =[
     'service-teacher-service' => function ($c) {
         return new \Core\Service\Dm\Service\TeacherService(
             $c->get('service-teacher-repository'),
-            $c->get('service-teacher-email-is-unique-specification')
+            $c->get('service-teacher-email-is-unique-specification'),
+            $c->get('service-teacher-must-have-min-one-category-specification'),
+            $c->get('service-teacher-must-have-min-one-range-specification')
         );
     },
 
@@ -80,6 +82,12 @@ $container =[
     },
     'service-teacher-email-is-unique-specification' => function ($c) {
         return new \Core\Service\Dm\Specification\TeacherEmailIsUnique($c->get('service-teacher-repository'));
+    },
+    'service-teacher-must-have-min-one-range-specification' => function ($c) {
+        return new \Core\Service\Dm\Specification\TeacherMustHaveMinOneRange();
+    },
+    'service-teacher-must-have-min-one-category-specification' => function ($c) {
+        return new \Core\Service\Dm\Specification\TeacherMustHaveMinOneCategory();
     },
 
     //INF _________________ INF

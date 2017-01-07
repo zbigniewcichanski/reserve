@@ -10,6 +10,7 @@ namespace Core\Service\Dm\Entity;
 
 use Core\Service\Core\DomainObject;
 use Core\Service\Dm\Entity\Teacher\CategoryVO;
+use Core\Service\Dm\Entity\Teacher\RangeVO;
 
 class TeacherAggregate extends DomainObject implements Owner
 {
@@ -210,7 +211,7 @@ class TeacherAggregate extends DomainObject implements Owner
     /**
      * @return array
      */
-    public function getRange()
+    public function getRanges()
     {
         return $this->ranges;
     }
@@ -218,10 +219,10 @@ class TeacherAggregate extends DomainObject implements Owner
     /**
      * @param array $range
      */
-    public function addRange($range)
+    public function addRange(RangeVO $range)
     {
         $this->markDirty();
-        $this->ranges[] = $range;
+        $this->ranges[$range->getId()] = $range;
     }
 
     /**

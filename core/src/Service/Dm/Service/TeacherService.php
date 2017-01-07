@@ -9,8 +9,12 @@
 namespace Core\Service\Dm\Service;
 
 use Core\Core\Specification\Specification;
+use Core\Service\Dm\Entity\Teacher\CategoryVO;
+use Core\Service\Dm\Entity\Teacher\LessonVO;
+use Core\Service\Dm\Entity\Teacher\RangeVO;
 use Core\Service\Dm\Entity\TeacherAggregate;
 use Core\Service\Dm\Repository\TeacherRepository;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 class TeacherService
 {
@@ -27,12 +31,17 @@ class TeacherService
      * @var Specification
      */
     private $teacherMustHaveMinOneCategory;
+    /**
+     * @var Specification
+     */
+    private $teacherMustHaveMinOneRange;
 
-    public function __construct(TeacherRepository $teacherRepository, Specification $teacherNameIsUnique, Specification $teacherMustHaveMinOneCategory )
+    public function __construct(TeacherRepository $teacherRepository, Specification $teacherNameIsUnique, Specification $teacherMustHaveMinOneCategory , Specification $teacherMustHaveMinOneRange)
     {
         $this->teacherNameIsUnique = $teacherNameIsUnique;
         $this->teacherRepository = $teacherRepository;
         $this->teacherMustHaveMinOneCategory = $teacherMustHaveMinOneCategory;
+        $this->teacherMustHaveMinOneRange = $teacherMustHaveMinOneRange;
     }
 
     public function addTeacher(string $name, string $surname, string $email)
@@ -80,8 +89,10 @@ class TeacherService
         }
     }
 
-    public function changeTeacherData(string $teacherId, string $name, string $surname, string $city, string $postCode, strig $phone, bool $driveToStudent, array $categoriesId, array $rangesId)
+    public function changeTeacherData(string $teacherId, string $name, string $surname, string $city, string $postCode, string $phone, bool $driveToStudent)
     {
+        try {
+
         /**
          * @var TeacherAggregate $teacherAggregate
          */
@@ -101,21 +112,136 @@ class TeacherService
             $teacherAggregate->notDriveToStudent();
         }
 
-        if($this->teacherMustHaveMinOneCategory->not()->isSatisfiedBy($categoriesId)){
-            return ['status'=>false, 'message'=>'Musiz wybrać przynajmniej jedną kategorie.'];
-        }
-
-        $teacherAggregate->setCategories($categoriesId);
-
-        $teacherAggregate->setRanges($rangesId);
-
         $teacherAggregate->save();
 
-        try {
+
+        return ['status'=>true, 'message'=>'Dane zostały zaktualizowane.'];
+
 
         } catch (\Exception $e) {
             throw new \Exception ("Błąd w procesie zmiany danych korepetytora." . $e->getMessage());
 
         }
     }
+
+    public function addCategoryToTeacher($teacherId, $categoryId)
+    {
+        try {
+
+            /**
+             * @var TeacherAggregate $teacherAggregate
+             */
+            $teacherAggregate = $this->teacherRepository->getOnIdentity($teacherId);
+            if (!$teacherAggregate) {
+                return ['status' => false, 'message' => 'Nie ma takiego nauczyciela.'];
+            }
+
+            $categoryVO = new CategoryVO();
+            $categoryVO->setCategoryId($categoryId);
+            $categoryVO->setTeacherId($teacherId);
+
+            $teacherAggregate->addCategory($categoryVO);
+
+            $teacherAggregate->save();
+
+            return ['status'=>true, 'message'=>'Kategoria została dodana.'];
+
+
+        } catch (\Exception $e){
+            throw new \Exception ("Błąd w procesie zmiany danych korepetytora." . $e->getMessage());
+        }
+    }
+
+    public function removeTeacherCategory($teacherId, $categoryId)
+    {
+        try {
+
+            /**
+             * @var TeacherAggregate $teacherAggregate
+             */
+            $teacherAggregate = $this->teacherRepository->getOnIdentity($teacherId);
+            if (!$teacherAggregate) {
+                return ['status' => false, 'message' => 'Nie ma takiego nauczyciela.'];
+            }
+
+            $categories = $teacherAggregate->getCategories();
+
+            if(!isset($categories[$categoryId])){
+                return ['status' => false, 'message' => 'Na takiej kategori.'];
+
+            }
+
+            $category = $categories[$categoryId];
+            $category->deleted();
+
+            $teacherAggregate->save();
+
+            return ['status'=>true, 'message'=>'Kategoria została usunięta.'];
+
+
+        } catch (\Exception $e){
+            throw new \Exception ("Błąd w procesie usuwania kategorii nauczyciela korepetytora." . $e->getMessage());
+        }
+    }
+
+    public function addRangeToTeacher($teacherId, $rangeId)
+    {
+        try {
+
+            /**
+             * @var TeacherAggregate $teacherAggregate
+             */
+            $teacherAggregate = $this->teacherRepository->getOnIdentity($teacherId);
+            if (!$teacherAggregate) {
+                return ['status' => false, 'message' => 'Nie ma takiego nauczyciela.'];
+            }
+
+            $rangeVO = new RangeVO();
+            $rangeVO->setRangeId($rangeId);
+            $rangeVO->setTeacherId($teacherId);
+
+            $teacherAggregate->addRange($rangeVO);
+
+            $teacherAggregate->save();
+
+            return ['status'=>true, 'message'=>'Zakres została dodany.'];
+
+
+        } catch (\Exception $e){
+            throw new \Exception ("Błąd w procesie dodawania zakresu do  korepetytora." . $e->getMessage());
+        }
+    }
+
+    public function removeTeacherRange($teacherId, $rangeId)
+    {
+        try {
+
+            /**
+             * @var TeacherAggregate $teacherAggregate
+             */
+            $teacherAggregate = $this->teacherRepository->getOnIdentity($teacherId);
+            if (!$teacherAggregate) {
+                return ['status' => false, 'message' => 'Nie ma takiego nauczyciela.'];
+            }
+
+            $ranges = $teacherAggregate->getRanges();
+
+            if(!isset($ranges[$rangeId])){
+                return ['status' => false, 'message' => 'Na takiej kategori.'];
+
+            }
+
+            $range = $ranges[$rangeId];
+            $range->deleted();
+
+            $teacherAggregate->save();
+
+            return ['status'=>true, 'message'=>'Zakres została usunięty.'];
+
+
+        } catch (\Exception $e){
+            throw new \Exception ("Błąd w procesie usuwania zakresu nauczyciela korepetytora." . $e->getMessage());
+        }
+    }
+
 }

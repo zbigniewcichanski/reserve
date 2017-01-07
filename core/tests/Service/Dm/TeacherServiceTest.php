@@ -52,18 +52,18 @@ class TeacherServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testChangeTeacherData()
     {
-
+        $teacherId = 'cc98bcb18d967952bbcbd3b3b6929b0b';
         $name = 'Zbyszek';
         $surname = 'Cichański';
         $city = 'Olszówka';
         $postCode = '34-730';
         $phone = '222222222';
         $categoriesId = ['9c36407a802ceed7301eb87e621e3105', '36966a1402c73cabe1df8e75fb94d724'];
-        $driveToStudent = true;
+        $driveToStudent = false;
         $rangesId = ['4952a784a90e4d551f2625637b8d8ed0', 'bf8f9e09b4d8c743a7dd53198680e9fe'];
 
         $result = $this->service->changeTeacherData(
-            $name, $surname, $city, $postCode, $phone, $driveToStudent, $categoriesId, $rangesId
+            $teacherId, $name, $surname, $city, $postCode, $phone, $driveToStudent
         );
         var_dump($result);
         $this->assertNotNull($result);
