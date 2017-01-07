@@ -10,8 +10,30 @@ namespace Core\Service\Dm\Service;
 
 class LessonService
 {
-   public function addLesson($idTeacher, $date, $starTime, $endTime, $studentId = false, $studentName = false, $location, $description)
-   {
+    public function addLesson($teacherId, $date, $starTime, $endTime, $studentId = false, $studentName = false, $location, $description, $atTeacherPlace = true)
+    {
 
-   }
+    }
+
+    public function cancelLessonByStudent($lessonId, $studentId)
+    {
+
+    }
+
+    public function cancelLessonByTeacher($lessonId, $teacherId)
+    {
+
+    }
+
+    public function addFreeTerm($teacherId, $date, $startTime, $endTime, $location, $atTeacherPlace = true, $atStudentPlace = false)
+    {
+
+    }
+
+    public function bookLesson($lessonId, $studentId)
+    {
+
+    }
+
+
 }
