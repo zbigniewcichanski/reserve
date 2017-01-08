@@ -42,6 +42,14 @@ $container =[
         );
     },
 
+    'service-app-lesson-service' => function ($c) {
+        return new \Core\Service\App\LessonService(
+            $c->get('service-app-message'),
+            $c->get('service-lesson-service'),
+            $c->get('service-lesson-repository')
+        );
+    },
+
     //DM __________________ DM
     'service-category-service' => function ($c) {
         return new \Core\Service\Dm\Service\CategoryService(
@@ -63,6 +71,10 @@ $container =[
             $c->get('service-teacher-must-have-min-one-range-specification')
         );
     },
+    'service-lesson-service' => function ($c) {
+        return new \Core\Service\Dm\Service\LessonService(
+        );
+    },
 
     'service-category-repository' => function ($c) {
         return new \Core\Service\Dm\Repository\CategoryRepository($c->get('service-category-inf-convert'));
@@ -72,6 +84,9 @@ $container =[
     },
     'service-teacher-repository' => function ($c) {
         return new \Core\Service\Dm\Repository\TeacherRepository($c->get('service-teacher-inf-convert'));
+    },
+    'service-lesson-repository' => function ($c) {
+        return new \Core\Service\Dm\Repository\LessonRepository($c->get('service-lesson-inf-convert'));
     },
 
     'service-category-name-is-unique-specification' => function ($c) {
@@ -105,6 +120,9 @@ $container =[
     'service-teacher-inf-convert' => function ($c) {
         return new \Core\Service\Inf\TeacherConvert($c->get('service-teacher-inf-repository'));
     },
+    'service-lesson-inf-convert' => function ($c) {
+        return new \Core\Service\Inf\LessonConvert($c->get('service-lesson-inf-repository'));
+    },
 
     'service-category-inf-repository' => function ($c) {
         return new \Core\Service\Inf\Repository\PDOCategoryRepository($c->get('service-database-factory'));
@@ -114,6 +132,9 @@ $container =[
     },
     'service-teacher-inf-repository' => function ($c) {
         return new \Core\Service\Inf\Repository\PDOTeacherRepository($c->get('service-database-factory'));
+    },
+    'service-lesson-inf-repository' => function ($c) {
+        return new \Core\Service\Inf\Repository\PDOLessonRepository($c->get('service-database-factory'));
     },
 
     'service-category-mapper' => function ($c) {

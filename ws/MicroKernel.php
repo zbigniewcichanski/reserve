@@ -9,7 +9,7 @@ use Symfony\Component\Routing\RouteCollectionBuilder;
 /**
  * @author Koen Vinken <vinkenkoen@gmail.com>
  */
-class MicroKernel extends Kernel
+class MicroKernel extends \DI\Bridge\Symfony\Kernel
 {
     use MicroKernelTrait;
 

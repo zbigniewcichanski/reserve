@@ -14,4 +14,8 @@ return [
 
         return $c;
     },
+
+    'service-lesson-service' => function ($c) {
+        return $c->get('core')->get('service-app-lesson-service');
+    },
 ];

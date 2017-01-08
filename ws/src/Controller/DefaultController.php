@@ -15,6 +15,6 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('Ws:Default:index.html.twig');
+        return $this->render('Ws:Lesson:free_terms.html.twig');
     }
 }
